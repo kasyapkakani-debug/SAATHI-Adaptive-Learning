@@ -1,70 +1,66 @@
-# SAATHI — Adaptive Learning Prototype
+
+# SAATHI — Adaptive Learning for Classes 6–10
 
 **Your learning buddy — learn at your own pace.**
 
-🔗 **Live Demo:** https://harshitha2866.github.io/SAATHI-Adaptive-Learning/
+🌐 **Live Demo:** https://harshitha2866.github.io/SAATHI-Adaptive-Learning/
 
-**GitHub Repository:** https://github.com/Harshitha2866/SAATHI-Adaptive-Learning
-
----
+📂 **GitHub Repository:** https://github.com/Harshitha2866/SAATHI-Adaptive-Learning
 
 ## About the Project
 
-SAATHI is a simple, beginner-friendly adaptive learning prototype designed to help first-semester students learn concepts, practise questions, and understand their progress.
-
-Students can choose a subject, read a short lesson, answer a quiz, and receive a learning recommendation based on their score.
-
-The goal is to make learning simple, interactive, and personalised without making the application difficult to use.
+SAATHI is a beginner-friendly adaptive-learning prototype for students in Classes 6 to 10. Students select their class, choose a subject, study a short lesson, answer quiz questions, and receive a suggested next learning activity based on their score.
 
 ## Subjects
 
-SAATHI currently includes three subjects:
+- **Mathematics:** Fractions, decimals, integers, algebra, geometry, and quadratic equations.
+- **Science:** Food and nutrition, plants, force and pressure, motion, cells, chemical reactions, and light.
+- **Social Studies:** Maps, Earth, natural resources, history, the Constitution, and democracy.
+- **English:** Nouns, pronouns, tenses, vocabulary, comprehension, and active/passive voice.
+- **Hindi:** संज्ञा, सर्वनाम, क्रिया, पर्यायवाची शब्द, विलोम शब्द, and grammar.
+- **Telugu:** నామవాచకాలు, సర్వనామాలు, క్రియలు, పర్యాయపదాలు, వ్యతిరేక పదాలు, and grammar.
 
-- **Programming Basics:** Variables, data types, operators, and conditions.
-- **Mathematics:** Fractions and decimals.
-- **English:** Grammar and vocabulary.
-
-Each topic includes a simple explanation, an example, and multiple-choice questions.
+These are sample topics. Check the content against the relevant school syllabus before using it for formal learning.
 
 ## Features
 
-- **Simple Navigation:** Separate screens for Home, Topics, Lesson, Quiz, Results, and My Progress.
-- **Beginner-Friendly Lessons:** Short explanations with easy examples.
-- **Interactive Quizzes:** Five multiple-choice questions per topic.
-- **Adaptive Learning Recommendations:** Suggestions based on quiz performance.
-- **Instant Feedback:** Students receive explanations after answering questions.
-- **Progress Tracking:** Previous quiz scores and accuracy are saved in the browser.
-- **Responsive Design:** The interface includes layouts intended for desktops, laptops, tablets, and mobile phones.
-- **Online Access:** The website is hosted using GitHub Pages.
+- Class selection for Classes 6–10.
+- Six school subjects.
+- Topic selection based on class and subject.
+- Simple lessons and examples.
+- Multiple-choice quizzes with explanations.
+- Instant feedback on answers.
+- Score-based learning recommendations.
+- Quiz results and accuracy.
+- Previous quiz history.
+- Responsive layout for different screen sizes.
+- Public hosting through GitHub Pages.
 
-## How Adaptive Learning Works
+## Adaptive Learning
 
-SAATHI uses a simple score-based approach to recommend the next learning activity.
-
-| Quiz Score | Recommended Level | Suggested Action |
+| Correct Answers | Recommended Level | Suggested Activity |
 |---|---|---|
-| 0–2 out of 5 | Foundation | Review the basics and try again |
+| 0–2 out of 5 | Foundation | Revise the basics |
 | 3 out of 5 | Practice | Practise similar questions |
-| 4–5 out of 5 | Challenge | Try a slightly harder activity |
+| 4–5 out of 5 | Challenge | Try a harder activity |
 
-These recommendations are simple rules based on quiz scores. The current prototype does not use a machine-learning model.
+Recommendations use simple JavaScript rules based on quiz scores. This prototype does not use an AI or machine-learning model.
 
-## Technology Stack
+## Technologies Used
 
-- **HTML:** Structures the website and its screens.
-- **CSS:** Styles the interface and supports responsive layouts.
-- **JavaScript:** Handles navigation, quizzes, scoring, and recommendations.
-- **LocalStorage:** Saves quiz history and the student's name in the current browser.
-- **GitHub:** Stores the source code.
-- **GitHub Pages:** Hosts the live website.
+- HTML
+- CSS
+- JavaScript
+- Browser LocalStorage
+- Git and GitHub
+- GitHub Pages
 
-## How to Run the Project Locally
+## Run Locally
 
-1. Clone or download this repository.
+1. Clone or download the repository.
 2. Open the project folder in Visual Studio Code.
-3. Make sure `index.html`, `style.css`, and `script.js` are in the same folder.
-4. Open `index.html` in a browser, or use the Live Server extension in VS Code.
-5. Choose a subject and topic to begin learning.
+3. Keep `index.html`, `style.css`, and `script.js` in the same directory.
+4. Open `index.html` in a browser, or use the VS Code Live Server extension.
 
 No backend or database setup is required.
 
@@ -78,30 +74,19 @@ SAATHI-Adaptive-Learning/
 └── README.md
 ```
 
-## Current Limitations
+## Limitations
 
-- The application uses sample learning content, not a complete first-semester syllabus.
-- The learning recommendation is based on quiz scores and does not use AI.
-- Quiz history is stored locally in the current browser.
-- Progress does not automatically synchronise between devices.
-- The prototype does not include student accounts, a backend, or a database.
-- The responsive interface should be tested on different screen sizes and browsers.
+- The project contains sample lessons, not a complete syllabus.
+- Some classes and subjects offer fewer topics than others.
+- Recommendations are score-based, not AI-based.
+- Quiz history is stored in the current browser and does not sync between devices.
+- Student accounts, a backend, and a database are not included.
 
 ## Future Improvements
 
-- Add more first-semester topics and questions.
-- Provide additional practice questions for topics students find difficult.
-- Include more detailed progress summaries.
-- Add teacher-reviewed learning content.
-
-These improvements can be introduced gradually while keeping the application simple and easy to understand.
-
-## Purpose
-
-SAATHI demonstrates how basic web technologies can be used to build an interactive learning experience in which quiz performance guides the next suggested learning activity.
-
-It is a learning prototype intended for demonstration and further development.
-
----
+- Add more syllabus-aligned lessons and questions.
+- Provide additional practice for difficult concepts.
+- Improve progress summaries.
+- Include teacher-reviewed learning materials.
 
 **SAATHI — Learn. Practise. Improve.**
