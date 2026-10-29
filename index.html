@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAATHI | Your Learning Buddy</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <a class="brand" href="#" data-go="homePage">
+      <span class="logo">S</span>
+      <span>
+        <b>SAATHI</b>
+        <small>Your learning buddy</small>
+      </span>
+    </a>
+
+    <nav>
+      <button class="nav-link active" data-go="homePage">Home</button>
+      <button class="nav-link" data-go="topicsPage">Topics</button>
+      <button class="nav-link" data-go="progressPage">My Progress</button>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    <!-- HOME PAGE -->
+    <section id="homePage" class="page">
+      <div class="hero">
+        <p class="eyebrow">PERSONALISED LEARNING</p>
+        <h1>Learn at your own pace.</h1>
+        <p>Understand concepts, practise questions, and find your next learning step.</p>
+      </div>
+
+      <div class="card">
+        <p class="eyebrow">GET STARTED</p>
+        <h2>Choose your learning path</h2>
+
+        <div class="form-grid">
+          <label>Your name
+            <input id="studentName" type="text"
+                   placeholder="Enter your name" maxlength="30">
+          </label>
+
+          <label>Semester
+            <select id="classSelect">
+              <option>1st Semester</option>
+            </select>
+          </label>
+
+          <label>Subject
+            <select id="subjectSelect">
+              <option>Programming Basics</option>
+              <option>Mathematics</option>
+              <option>English</option>
+            </select>
+          </label>
+
+          <label>Topic
+            <select id="topicSelect"></select>
+          </label>
+        </div>
+
+        <p class="note">Beginner-friendly sample content for a prototype.</p>
+        <button id="startBtn" class="primary">Start Learning →</button>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feature">
+          <span>01</span>
+          <h3>Learn</h3>
+          <p>Understand a concept through a simple explanation.</p>
+        </article>
+
+        <article class="feature">
+          <span>02</span>
+          <h3>Practise</h3>
+          <p>Answer multiple-choice questions.</p>
+        </article>
+
+        <article class="feature">
+          <span>03</span>
+          <h3>Improve</h3>
+          <p>Get a learning recommendation based on your score.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- TOPICS PAGE -->
+    <section id="topicsPage" class="page hidden">
+      <div class="page-heading">
+        <p class="eyebrow">EXPLORE</p>
+        <h1>Choose a topic</h1>
+        <p>Select a subject and start learning.</p>
+      </div>
+
+      <div class="toolbar">
+        <label>Subject
+          <select id="browseSubject">
+            <option>Programming Basics</option>
+            <option>Mathematics</option>
+            <option>English</option>
+          </select>
+        </label>
+      </div>
+
+      <div id="topicCards" class="topic-grid"></div>
+    </section>
+
+    <!-- LESSON PAGE -->
+    <section id="lessonPage" class="page hidden">
+      <button class="back-button" data-go="topicsPage">
+        ← Back to topics
+      </button>
+
+      <div class="lesson-layout">
+        <article class="card">
+          <p class="eyebrow">PART 1 · LEARN</p>
+          <span id="levelBadge" class="badge">Foundation</span>
+          <h1 id="lessonTitle">Lesson</h1>
+          <p id="lessonText"></p>
+
+          <div class="example-box">
+            <strong>Simple Example</strong>
+            <p id="lessonExample"></p>
+          </div>
+
+          <button id="startQuizBtn" class="primary">
+            Start Practice →
+          </button>
+        </article>
+
+        <aside class="card side-card">
+          <p class="eyebrow">YOUR LEARNING PATH</p>
+          <h3>Learn · Practise · Improve</h3>
+          <p>Answer the questions to receive a suggested next step.</p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- QUIZ PAGE -->
+    <section id="quizPage" class="page hidden">
+      <button class="back-button" data-go="lessonPage">
+        ← Back to lesson
+      </button>
+
+      <article class="card">
+        <p class="eyebrow">PART 2 · PRACTISE</p>
+
+        <div class="title-line">
+          <h1 id="quizTitle">Practice</h1>
+          <span id="questionCount" class="muted"></span>
+        </div>
+
+        <div class="progress-track">
+          <div id="progressBar"></div>
+        </div>
+
+        <h2 id="questionText"></h2>
+        <div id="options" class="options"></div>
+        <p id="feedback" aria-live="polite"></p>
+
+        <button id="answerBtn" class="primary" disabled>
+          Check Answer
+        </button>
+      </article>
+    </section>
+
+    <!-- RESULTS PAGE -->
+    <section id="resultPage" class="page hidden">
+      <article class="card result-card">
+        <p class="eyebrow">PART 3 · YOUR RESULTS</p>
+
+        <h1 id="resultTitle"></h1>
+        <p id="resultMessage"></p>
+
+        <div class="stats">
+          <div>
+            <strong id="scoreValue">0/5</strong>
+            <span>Correct answers</span>
+          </div>
+
+          <div>
+            <strong id="accuracyValue">0%</strong>
+            <span>Accuracy</span>
+          </div>
+        </div>
+
+        <div class="recommendation">
+          <h3 id="recommendationTitle"></h3>
+          <p id="recommendationText"></p>
+        </div>
+
+        <h3>Why this recommendation?</h3>
+        <p id="reasonText"></p>
+
+        <div class="button-row">
+          <button id="restartBtn" class="primary">
+            Try Again
+          </button>
+
+          <button id="resultTopicsBtn" class="secondary">
+            Choose Another Topic
+          </button>
+        </div>
+      </article>
+    </section>
+
+    <!-- PROGRESS PAGE -->
+    <section id="progressPage" class="page hidden">
+      <div class="page-heading">
+        <p class="eyebrow">YOUR JOURNEY</p>
+        <h1>My Progress</h1>
+        <p>Review your previous quiz results.</p>
+      </div>
+
+      <div class="stats">
+        <div>
+          <strong id="roundsValue">0</strong>
+          <span>Quizzes completed</span>
+        </div>
+
+        <div>
+          <strong id="bestValue">—</strong>
+          <span>Best accuracy</span>
+        </div>
+
+        <div>
+          <strong id="currentLevel">Not started</strong>
+          <span>Last recommended level</span>
+        </div>
+      </div>
+
+      <article class="card">
+        <h2>Recent Activity</h2>
+        <div id="historyList" class="history-list">
+          Complete a quiz to see your progress.
+        </div>
+        <p class="note">
+          Your progress is saved in this browser.
+        </p>
+      </article>
+    </section>
+
+    <section class="teacher-note">
+      <b>Learning made simple.</b>
+      <p>
+        SAATHI suggests the next learning activity based on quiz
+        performance. The suggestions are for practice and guidance.
+      </p>
+    </section>
+
+  </main>
+
+  <footer>SAATHI · Code Kernel ’26 Prototype</footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
