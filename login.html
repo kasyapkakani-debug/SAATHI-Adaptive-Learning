@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAATHI - Login</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            padding: 25px 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f3f5fb;
+            font-family: Arial, sans-serif;
+            color: #25365f;
+        }
+
+        .auth-container {
+            width: 100%;
+            max-width: 430px;
+            background: white;
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 5px 25px rgba(28, 45, 85, 0.10);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 8px;
+            font-size: 30px;
+            font-weight: bold;
+            color: #293d78;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 22px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 13px 8px;
+            border: 1px solid #d5dcf0;
+            border-radius: 10px;
+            background: white;
+            color: #293d78;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .tab.active {
+            background: #293d78;
+            color: white;
+            border-color: #293d78;
+        }
+
+        h2 {
+            margin: 0 0 20px;
+            font-size: 22px;
+            color: #24365c;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccd5eb;
+            border-radius: 9px;
+            font-size: 14px;
+            outline: none;
+            background: white;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #435cac;
+            box-shadow: 0 0 0 2px rgba(67, 92, 172, 0.10);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 13px;
+            margin-top: 4px;
+            border: none;
+            border-radius: 9px;
+            background: #435cac;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #293d78;
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+        }
+
+        .auth-switch {
+            margin: 20px 0 0;
+            text-align: center;
+            font-size: 14px;
+            color: #45516b;
+        }
+
+        .auth-switch a {
+            color: #3157b7;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .auth-switch a:hover {
+            text-decoration: underline;
+        }
+
+        .message {
+            display: none;
+            padding: 11px;
+            margin-bottom: 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .message.error {
+            display: block;
+            color: #a32020;
+            background: #fff0f0;
+            border: 1px solid #f3caca;
+        }
+
+        .message.success {
+            display: block;
+            color: #17643a;
+            background: #eaf8ef;
+            border: 1px solid #c4e9d0;
+        }
+
+        .demo-info {
+            margin-top: 22px;
+            padding: 12px;
+            border-radius: 9px;
+            background: #f4f6fc;
+            color: #56627d;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .demo-info strong {
+            color: #293d78;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 420px) {
+            .auth-container {
+                padding: 22px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="auth-container">
+
+        <div class="logo">SAATHI</div>
+        <div class="subtitle">Your Personalised Learning Companion</div>
+
+        <div class="tabs">
+            <button type="button" class="tab active" id="studentTab">
+                🎓 Student
+            </button>
+
+            <button type="button" class="tab" id="facultyTab">
+                🏫 Faculty
+            </button>
+        </div>
+
+        <div id="message" class="message" role="alert"></div>
+
+        <!-- STUDENT LOGIN -->
+        <section id="studentLoginSection">
+            <h2>Student Login</h2>
+
+            <form id="studentLoginForm">
+                <div class="form-group">
+                    <label for="studentEmail">Email address</label>
+                    <input
+                        type="email"
+                        id="studentEmail"
+                        placeholder="Enter email address"
+                        autocomplete="username"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="studentPassword">Password</label>
+                    <input
+                        type="password"
+                        id="studentPassword"
+                        placeholder="Enter password"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="submit-btn" id="studentLoginButton">
+                    Login as Student
+                </button>
+            </form>
+
+            <p class="auth-switch">
+                Don't have an account?
+                <a href="#" id="showRegister">Create an account</a>
+            </p>
+        </section>
+
+        <!-- STUDENT REGISTRATION -->
+        <section id="studentRegisterSection" class="hidden">
+            <h2>Create Student Account</h2>
+
+            <form id="studentRegisterForm">
+                <div class="form-group">
+                    <label for="registerName">Full name</label>
+                    <input
+                        type="text"
+                        id="registerName"
+                        placeholder="Enter your full name"
+                        autocomplete="name"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="registerEmail">Email address</label>
+                    <input
+                        type="email"
+                        id="registerEmail"
+                        placeholder="Enter email address"
+                        autocomplete="email"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="registerClass">Class</label>
+                    <select id="registerClass" required>
+                        <option value="">Select your class</option>
+                        <option value="6">Class 6</option>
+                        <option value="7">Class 7</option>
+                        <option value="8">Class 8</option>
+                        <option value="9">Class 9</option>
+                        <option value="10">Class 10</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input
+                        type="password"
+                        id="registerPassword"
+                        placeholder="Create a password"
+                        minlength="8"
+                        autocomplete="new-password"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm password</label>
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        placeholder="Re-enter your password"
+                        minlength="8"
+                        autocomplete="new-password"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="submit-btn" id="registerButton">
+                    Create Account
+                </button>
+            </form>
+
+            <p class="auth-switch">
+                Already have an account?
+                <a href="#" id="showStudentLogin">Log in</a>
+            </p>
+        </section>
+
+        <!-- FACULTY LOGIN -->
+        <section id="facultyLoginSection" class="hidden">
+            <h2>Faculty Login</h2>
+
+            <form id="facultyLoginForm">
+                <div class="form-group">
+                    <label for="facultyEmail">Email address</label>
+                    <input
+                        type="email"
+                        id="facultyEmail"
+                        placeholder="Enter faculty email"
+                        autocomplete="username"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="facultyPassword">Password</label>
+                    <input
+                        type="password"
+                        id="facultyPassword"
+                        placeholder="Enter password"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="submit-btn" id="facultyLoginButton">
+                    Login as Faculty
+                </button>
+            </form>
+        </section>
+
+        <!-- DEMO STUDENT CREDENTIALS -->
+<div class="demo-info" id="studentDemoInfo">
+    <strong>Demo Student Accounts</strong>
+
+    <p>
+        <strong>Aarav Sharma (Class 7)</strong><br>
+        Email: aarav.demo@saathi.local<br>
+        Password: Student@123
+    </p>
+
+    <p>
+        <strong>Meera Reddy (Class 7)</strong><br>
+        Email: meera.demo@saathi.local<br>
+        Password: Student@123
+    </p>
+
+    <p>
+        <strong>Ravi Kumar (Class 7)</strong><br>
+        Email: ravi.demo@saathi.local<br>
+        Password: Student@123
+    </p>
+
+    <p>
+        <strong>Ananya Patel (Class 8)</strong><br>
+        Email: ananya.demo@saathi.local<br>
+        Password: Student@123
+    </p>
+
+    <p>
+        <strong>Arjun Rao (Class 6)</strong><br>
+        Email: arjun.demo@saathi.local<br>
+        Password: Student@123
+    </p>
+</div>
+
+<!-- DEMO FACULTY CREDENTIALS -->
+<div class="demo-info hidden" id="facultyDemoInfo">
+    <strong>Demo Faculty Account</strong>
+
+    <p>
+        Email: faculty@saathi.local<br>
+        Password: Faculty@123
+    </p>
+</div>
+    </div>
+
+    <script>
+        const API_BASE = "http://127.0.0.1:8000";
+
+        const studentTab = document.getElementById("studentTab");
+        const facultyTab = document.getElementById("facultyTab");
+
+        const studentLoginSection =
+            document.getElementById("studentLoginSection");
+
+        const studentRegisterSection =
+            document.getElementById("studentRegisterSection");
+
+        const facultyLoginSection =
+            document.getElementById("facultyLoginSection");
+
+        const messageBox = document.getElementById("message");
+
+        function showMessage(message, type = "error") {
+            messageBox.textContent = message;
+            messageBox.className = "message " + type;
+        }
+
+        function clearMessage() {
+            messageBox.textContent = "";
+            messageBox.className = "message";
+        }
+
+        function showStudentLogin() {
+    clearMessage();
+
+    studentLoginSection.classList.remove("hidden");
+    studentRegisterSection.classList.add("hidden");
+    facultyLoginSection.classList.add("hidden");
+
+    studentTab.classList.add("active");
+    facultyTab.classList.remove("active");
+
+    document.getElementById("studentDemoInfo").classList.remove("hidden");
+    document.getElementById("facultyDemoInfo").classList.add("hidden");
+}
+
+function showStudentRegister() {
+    clearMessage();
+
+    studentLoginSection.classList.add("hidden");
+    studentRegisterSection.classList.remove("hidden");
+    facultyLoginSection.classList.add("hidden");
+
+    studentTab.classList.add("active");
+    facultyTab.classList.remove("active");
+
+    document.getElementById("studentDemoInfo").classList.add("hidden");
+    document.getElementById("facultyDemoInfo").classList.add("hidden");
+}
+
+function showFacultyLogin() {
+    clearMessage();
+
+    studentLoginSection.classList.add("hidden");
+    studentRegisterSection.classList.add("hidden");
+    facultyLoginSection.classList.remove("hidden");
+
+    studentTab.classList.remove("active");
+    facultyTab.classList.add("active");
+
+    document.getElementById("studentDemoInfo").classList.add("hidden");
+    document.getElementById("facultyDemoInfo").classList.remove("hidden");
+}
+
+
+
+        studentTab.addEventListener("click", showStudentLogin);
+        facultyTab.addEventListener("click", showFacultyLogin);
+
+        document.getElementById("showRegister").addEventListener("click", function (event) {
+            event.preventDefault();
+            showStudentRegister();
+        });
+
+        document.getElementById("showStudentLogin").addEventListener("click", function (event) {
+            event.preventDefault();
+            showStudentLogin();
+        });
+
+        function getErrorMessage(data) {
+            if (typeof data.detail === "string") {
+                return data.detail;
+            }
+
+            if (Array.isArray(data.detail)) {
+                return data.detail
+                    .map(item => item.msg || "Invalid input")
+                    .join(", ");
+            }
+
+            return data.message || data.error || "Something went wrong. Please try again.";
+        }
+
+        async function apiPost(endpoint, body) {
+            const response = await fetch(API_BASE + endpoint, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(body)
+            });
+
+            const data = await response.json().catch(() => ({}));
+
+            if (!response.ok) {
+                throw new Error(getErrorMessage(data));
+            }
+
+            return data;
+        }
+
+        function saveLogin(data, role, fallbackEmail) {
+            const token =
+                data.access_token ||
+                data.token ||
+                data.jwt;
+
+            if (!token) {
+                throw new Error("Login succeeded, but the server did not return an authentication token. Check the backend login response.");
+            }
+
+            const user = data.user || data.student || data.profile || {
+                name: data.name || fallbackEmail,
+                email: data.email || fallbackEmail,
+                class_name: data.class_name || "",
+                student_code: data.student_code || ""
+            };
+
+            localStorage.setItem("saathiToken", token);
+            localStorage.setItem("saathiUser", JSON.stringify(user));
+            localStorage.setItem("saathiRole", role);
+
+            window.location.href =
+                role === "faculty" ? "teacher.html" : "index.html";
+        }
+
+        function setLoading(buttonId, loading, loadingText, defaultText) {
+            const button = document.getElementById(buttonId);
+            button.disabled = loading;
+            button.textContent = loading ? loadingText : defaultText;
+        }
+
+        // STUDENT LOGIN
+        document.getElementById("studentLoginForm")
+            .addEventListener("submit", async function (event) {
+                event.preventDefault();
+                clearMessage();
+
+                const email = document.getElementById("studentEmail").value.trim();
+                const password = document.getElementById("studentPassword").value;
+
+                setLoading(
+                    "studentLoginButton",
+                    true,
+                    "Logging in...",
+                    "Login as Student"
+                );
+
+                try {
+                    const data = await apiPost("/api/auth/login", {
+                        email: email,
+                        password: password,
+                        role: "student"
+                    });
+
+                    saveLogin(data, "student", email);
+                } catch (error) {
+                    showMessage(error.message);
+                } finally {
+                    setLoading(
+                        "studentLoginButton",
+                        false,
+                        "Logging in...",
+                        "Login as Student"
+                    );
+                }
+            });
+
+        // STUDENT REGISTRATION
+        document.getElementById("studentRegisterForm")
+            .addEventListener("submit", async function (event) {
+                event.preventDefault();
+                clearMessage();
+
+                const name = document.getElementById("registerName").value.trim();
+                const email = document.getElementById("registerEmail").value.trim();
+                const className = document.getElementById("registerClass").value;
+                const password = document.getElementById("registerPassword").value;
+                const confirmPassword = document.getElementById("confirmPassword").value;
+
+                if (password.length < 8) {
+                    showMessage("Password must contain at least 8 characters.");
+                    return;
+                }
+
+                if (password !== confirmPassword) {
+                    showMessage("Passwords do not match.");
+                    return;
+                }
+
+                setLoading(
+                    "registerButton",
+                    true,
+                    "Creating account...",
+                    "Create Account"
+                );
+
+                try {
+                    const data = await apiPost("/api/auth/register", {
+                        name: name,
+                        full_name: name,
+                        student_name: name,
+                        email: email,
+                        password: password,
+                        class_name: className,
+                        student_class: className,
+                        class_level: className,
+                        role: "student"
+                    });
+
+                    document.getElementById("studentEmail").value = email;
+                    document.getElementById("studentPassword").value = "";
+
+                    showStudentLogin();
+
+                    let successMessage = "Account created successfully. Please log in.";
+
+                    const studentCode =
+                        data.student_code ||
+                        (data.user && data.user.student_code);
+
+                    if (studentCode) {
+                        successMessage += " Your student ID is " + studentCode + ".";
+                    }
+
+                    showMessage(successMessage, "success");
+
+                } catch (error) {
+                    showMessage(error.message);
+                } finally {
+                    setLoading(
+                        "registerButton",
+                        false,
+                        "Creating account...",
+                        "Create Account"
+                    );
+                }
+            });
+
+        // FACULTY LOGIN
+        document.getElementById("facultyLoginForm")
+            .addEventListener("submit", async function (event) {
+                event.preventDefault();
+                clearMessage();
+
+                const email = document.getElementById("facultyEmail").value.trim();
+                const password = document.getElementById("facultyPassword").value;
+
+                setLoading(
+                    "facultyLoginButton",
+                    true,
+                    "Logging in...",
+                    "Login as Faculty"
+                );
+
+                try {
+                    const data = await apiPost("/api/auth/login", {
+                        email: email,
+                        password: password,
+                        role: "faculty"
+                    });
+
+                    saveLogin(data, "faculty", email);
+                } catch (error) {
+                    showMessage(error.message);
+                } finally {
+                    setLoading(
+                        "facultyLoginButton",
+                        false,
+                        "Logging in...",
+                        "Login as Faculty"
+                    );
+                }
+            });
+    </script>
+</body>
+</html>
