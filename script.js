@@ -1235,6 +1235,9 @@ function getRecommendation(finalScore) {
 async function finishQuiz() {
     const total = currentTopic.questions.length;
     const accuracy = Math.round((score / total) * 100);
+    const studentName =
+    AUTH_USER?.name || localStorage.getItem("saathiStudentName") ||
+    $("studentName").value.trim() || "Student";
 
     $("progressBar").style.width = "100%";
 
@@ -1253,7 +1256,7 @@ async function finishQuiz() {
 
     // Prepare quiz submission
     const payload = {
-        student_name: currentStudentName || getStudentName() || "Student",
+        student_name: studentName,
         class_name: currentClass,
         subject: currentSubject,
         topic: currentTopic.name,
@@ -1264,7 +1267,7 @@ async function finishQuiz() {
 
     // Save result locally
     const attempt = {
-        studentName: currentStudentName || getStudentName() || "Student",
+        studentName: studentName,
         className: currentClass,
         subject: currentSubject,
         topic: currentTopic.name,
