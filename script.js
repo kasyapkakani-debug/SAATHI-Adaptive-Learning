@@ -1245,15 +1245,13 @@ async function finishQuiz() {
                 ? "Good effort!"
                 : "Keep practising!";
 
-    $("resultMessage").textContent =
-        "Preparing your learning recommendation...";
-
     $("scoreValue").textContent = `${score}/${total}`;
     $("accuracyValue").textContent = `${accuracy}%`;
 
+    // Generate recommendation immediately
     let recommendation = getRecommendation(score);
 
-    // Data to be sent to FastAPI
+    // Prepare quiz submission
     const payload = {
         student_name: currentStudentName || getStudentName() || "Student",
         class_name: currentClass,
@@ -1264,7 +1262,7 @@ async function finishQuiz() {
         mistake_tags: [...mistakeTags]
     };
 
-    // Save the result locally first.
+    // Save result locally
     const attempt = {
         studentName: currentStudentName || getStudentName() || "Student",
         className: currentClass,
@@ -1282,27 +1280,43 @@ async function finishQuiz() {
     history.unshift(attempt);
     saveHistory(history.slice(0, 50));
 
-    let synced = false;
+    // Display recommendation immediately
+    $("levelBadge").textContent = recommendation.level;
+    $("recommendationTitle").textContent = recommendation.title;
+    $("recommendationText").textContent = recommendation.message;
+    $("reasonText").textContent = recommendation.reason;
 
-    // Try sending the submission to the backend.
+    $("resultMessage").textContent =
+        "Your results are ready. Saving your submission...";
+
+    // SHOW RESULTS WITHOUT WAITING FOR SERVER
+    showPage("resultPage");
+
+    // Synchronize with backend in the background
     try {
         const serverResult = await sendQuizToServer(payload);
 
         recommendation = {
-            level: serverResult.recommended_level,
-            title: serverResult.recommended_activity,
-            message: serverResult.explanation,
+            level: serverResult.recommended_level || recommendation.level,
+            title: serverResult.recommended_activity || recommendation.title,
+            message: serverResult.explanation || recommendation.message,
             reason:
                 serverResult.prerequisite_suggestion ||
-                `SAATHI selected ${serverResult.recommended_level} based on your quiz score.`
+                `SAATHI selected ${serverResult.recommended_level || recommendation.level} based on your quiz score.`
         };
 
-        synced = true;
+        // Update recommendation if server responds
+        $("levelBadge").textContent = recommendation.level;
+        $("recommendationTitle").textContent = recommendation.title;
+        $("recommendationText").textContent = recommendation.message;
+        $("reasonText").textContent = recommendation.reason;
+
+        $("resultMessage").textContent =
+            "Quiz completed and successfully saved to SAATHI.";
 
     } catch (error) {
         console.log("Quiz submission could not be synced:", error);
 
-        // Queue network/server failures and expired sessions for retry.
         if (
             !error.status ||
             error.status === 401 ||
@@ -1317,19 +1331,6 @@ async function finishQuiz() {
                 "Your result is saved on this device, but the server rejected the submission.";
         }
     }
-
-    // Display recommendation.
-    $("levelBadge").textContent = recommendation.level;
-    $("recommendationTitle").textContent = recommendation.title;
-    $("recommendationText").textContent = recommendation.message;
-    $("reasonText").textContent = recommendation.reason;
-
-    if (synced) {
-        $("resultMessage").textContent =
-            "Quiz completed and successfully saved to SAATHI.";
-    }
-
-    showPage("resultPage");
 }
 
 // ==================================================
