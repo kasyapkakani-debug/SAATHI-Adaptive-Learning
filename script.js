@@ -570,7 +570,7 @@ const content = {
       Q("సమాధానం కోసం ఎక్కడ చూడాలి?", ["అంచనాలో మాత్రమే", "ఎక్కడైనా", "పాఠ్యంలో", "చూడకూడదు"], 2, "పాఠ్యంలో ఉన్న సమాచారాన్ని ఉపయోగించాలి.", "comprehension"),
       Q("శీర్షిక ఏమి తెలియజేస్తుంది?", ["రచయిత వయస్సు", "పేజీ సంఖ్య", "అక్షర పరిమాణం", "ప్రధాన విషయం"], 3, "శీర్షిక సాధారణంగా ప్రధాన విషయాన్ని తెలియజేస్తుంది.", "main-idea"),
       Q("వర్షం వల్ల ఆట ఆగిందని ఉంటే ఆట ఎందుకు ఆగింది?", ["వర్షం వల్ల", "పరీక్ష వల్ల", "రాత్రి వల్ల", "పుస్తకం వల్ల"], 0, "పాఠ్యంలో వర్షం కారణంగా ఆట ఆగిందని ఉంది.", "comprehension"),
-      Q("పాఠ్యం చదివేటప్పుడు ఏమి తెలుసుకోవాలి?", ["అక్షరాల సంఖ్య మాత్రమే", "ప్రధాన భావం", "మొదటి పదం మాత్రమే", "రంగు మాత్రమే"], 1, "ప్రధాన భావం అర్థం చేసుకోవడం ముఖ్యం.", "comprehension")
+      Q("పాఠ్యం చదివేటప్పుడు ఏమి తెలుసుకోవాలి?", ["అక్షరాల సంఖ్య మాత్రమే", "ప్రధాన భావం", "మొదటి పదం మాత్రమే", "రంగు"], 1, "ప్రధాన భావం అర్థం చేసుకోవడం ముఖ్యం.", "comprehension")
     ])
 };
 
@@ -1235,9 +1235,14 @@ function getRecommendation(finalScore) {
 async function finishQuiz() {
     const total = currentTopic.questions.length;
     const accuracy = Math.round((score / total) * 100);
+
+    // Use the authenticated student's name.
+    // Do not use undefined currentStudentName or getStudentName variables.
     const studentName =
-    AUTH_USER?.name || localStorage.getItem("saathiStudentName") ||
-    $("studentName").value.trim() || "Student";
+        AUTH_USER?.name ||
+        localStorage.getItem("saathiStudentName") ||
+        $("studentName").value.trim() ||
+        "Student";
 
     $("progressBar").style.width = "100%";
 
@@ -1251,10 +1256,10 @@ async function finishQuiz() {
     $("scoreValue").textContent = `${score}/${total}`;
     $("accuracyValue").textContent = `${accuracy}%`;
 
-    // Generate recommendation immediately
+    // Generate recommendation immediately.
     let recommendation = getRecommendation(score);
 
-    // Prepare quiz submission
+    // Data to be sent to FastAPI.
     const payload = {
         student_name: studentName,
         class_name: currentClass,
@@ -1265,7 +1270,7 @@ async function finishQuiz() {
         mistake_tags: [...mistakeTags]
     };
 
-    // Save result locally
+    // Save the result locally first.
     const attempt = {
         studentName: studentName,
         className: currentClass,
@@ -1283,7 +1288,7 @@ async function finishQuiz() {
     history.unshift(attempt);
     saveHistory(history.slice(0, 50));
 
-    // Display recommendation immediately
+    // Display recommendation immediately.
     $("levelBadge").textContent = recommendation.level;
     $("recommendationTitle").textContent = recommendation.title;
     $("recommendationText").textContent = recommendation.message;
@@ -1292,10 +1297,10 @@ async function finishQuiz() {
     $("resultMessage").textContent =
         "Your results are ready. Saving your submission...";
 
-    // SHOW RESULTS WITHOUT WAITING FOR SERVER
+    // Show results without waiting for the server.
     showPage("resultPage");
 
-    // Synchronize with backend in the background
+    // Synchronize with backend in the background.
     try {
         const serverResult = await sendQuizToServer(payload);
 
@@ -1308,7 +1313,7 @@ async function finishQuiz() {
                 `SAATHI selected ${serverResult.recommended_level || recommendation.level} based on your quiz score.`
         };
 
-        // Update recommendation if server responds
+        // Update recommendation if the server responds.
         $("levelBadge").textContent = recommendation.level;
         $("recommendationTitle").textContent = recommendation.title;
         $("recommendationText").textContent = recommendation.message;
@@ -1320,6 +1325,7 @@ async function finishQuiz() {
     } catch (error) {
         console.log("Quiz submission could not be synced:", error);
 
+        // Queue network/server failures and expired sessions for retry.
         if (
             !error.status ||
             error.status === 401 ||
